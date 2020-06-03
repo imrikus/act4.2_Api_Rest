@@ -1,0 +1,68 @@
+{# templates/list/index.html.twig #} {% extends 'base.html.twig' %} {% block
+body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card bg-light mb-3 mt-3">
+        <div class="card-body">
+          <div class="card-header">Troba el millor oci per a tu!</div>
+          {% if app.user != null %}
+          {% endif %}
+        </div>
+      </div>
+          {% if app.user != null %}
+            <h4>Benvingut, {{ app.user }}</h4>
+          {% endif %}
+      <div class="card bg-light mb-3 mt-3">
+        <div class="card-body">
+          {{ form_start(form) }}
+          {{ form_widget(form) }}
+          {{ form_end(form) }}
+
+          {% if content_cine is defined and content_cine is not null %}
+            {% for film in content_cine %}
+              <h5><li>
+                  Nom: {{ film.name }} 
+                  | Gènere: {{ film.genero }} 
+                  | Descripció: {{ film.descripcion }}   
+              <h5></li>
+            {% endfor %}
+          {% endif %}
+
+          {% if content_llibres is defined and content_llibres is not null %}
+            {% for book in content_llibres %}
+              <h5><li>
+                  Nom: {{ book.name }} 
+                  | Gènere: {{ book.genero }} 
+                  | Descripció: {{ book.descripcion }}   
+              <h5></li>
+            {% endfor %}
+          {% endif %}
+
+          {% if content_musica is defined and content_musica is not null %}
+            <h3>Eminem</h3>
+            {% for album in content_musica.data %}
+              <h5><li>
+                  Nom album:  {{ album.title }}
+              <h5></li>
+            {% endfor %}
+          {% endif %}
+          
+
+          {% if app.user != null %}
+            <h4>Les teves preferències son:</h4>
+              <li>{{ app.user.oci_preferit }}</li>
+              <li>{{ app.user.localitzacio_preferida }}</li>
+          {% endif %}
+        </div>
+      </div>
+  
+      {% if app.user == null %}
+      <a href="{{ path('app_login') }}" class="btn btn-info">
+        Ara mateix no has fet login. No podràs desar les teves preferències.</a
+      >
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
