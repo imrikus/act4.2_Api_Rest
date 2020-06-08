@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}Benvingut al teu oci!{% endblock %}</title>
+    <title>{% block title %}Aplicació per escollir ocis{% endblock %}</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -15,20 +15,24 @@
       class="navbar navbar-expand-lg navbar-light bg-light"
       style="height: 70px;"
     >
-      <a class="navbar-brand" href="#">El teu oci</a>
+      <a class="navbar-brand" href="#">Elecció d'oci</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
       <ul class="nav navbar-nav navbar-right">
         {% if app.user %}
-        <li><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
+        <li><a class="nav-link" href="{{ path('app_logout') }}">Surt</a></li>
         {% else %}
-        <li><a class="nav-link" href="{{ path('list') }}">Oci recomanat</a></li>
-        <li><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
+        <li><a class="nav-link" href="{{ path('list') }}">Recomacions:</a></li>
+        <li><a class="nav-link" href="{{ path('app_login') }}">Entra</a></li>
         <li>
-          <a class="nav-link" href="{{ path('registration') }}">Registre</a>
+          <a class="nav-link" href="{{ path('registration') }}">Registra</a>
         </li>
         {% endif %}
       </ul>
     </nav>
     {% block body %}{% endblock %} {% block javascripts %}{% endblock %}
+    <footer>
+      <p>Autor: Alex Estrada<br>
+      <a href="mailto:a18aleestseg@inspedralbes.cat">a18aleestseg@inspedralbes.cat</a></p>
+    </footer>
   </body>
 </html>

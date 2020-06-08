@@ -27,8 +27,8 @@ class ListController extends AbstractController
             ->add('tipus', ChoiceType::class, [
                 'choices' =>[
                     'Cine' => 'cine',
-                    'Llibres' => 'llibres',
-                    'Música' => 'musica'                ]
+                    'Horoscop' => 'horoscop',
+                    'Begudes' => 'begudes'                ]
             ])
             ->add('localitzacio', ChoiceType::class, [
                 'choices' =>[
@@ -50,7 +50,7 @@ class ListController extends AbstractController
             if($tipus_pref == "cine") {
                 // API de cine creada por nosotros 
                 $client = HttpClient::create();
-                $response = $client->request('GET', 'http://127.0.0.1:39261/api/pelis');
+                $response = $client->request('GET', 'http://labs.iam.cat/~a18aleestseg/api-rest/public/api/peliculas/');
                 $content_cine = $response->getContent();
                 $content_cine = $response->toArray();
 
@@ -58,30 +58,26 @@ class ListController extends AbstractController
                     'form' => $form->createView(),
                     'content_cine' => $content_cine
                 ]);
-            // API externas
-           } else if($tipus_pref == "llibres") {
+            // API externes
+           } else if($tipus_pref == "horoscop") {
                 $client = HttpClient::create();
-                $response = $client->request('GET', 'https://www.etnassoft.com/api/v1/get/?id=589&callback=?');
-                $content_llibres = $response->getContent();
-                $content_llibres = $response->toArray();
+                $response = $client->request('GET', 'http://ohmanda.com/api/horoscope/aquarius');
+                $content_horoscop = $response->getContent();
+                $content_horoscop = $response->toArray();
 
                 return $this->render('list/index.html.twig', [
                     'form' => $form->createView(),
-                    'content_llibres' => $content_llibres
+                    'content_horoscop' => $content_horoscop
                 ]);
-            } else if ($tipus_pref == "musica") {
+            } else if ($tipus_pref == "begudes") {
                 $client = HttpClient::create();
-                $response = $client->request('GET', 'https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem', [
-                    'headers' => [
-                        "x-rapidapi-host" => "deezerdevs-deezer.p.rapidapi.com",
-                        "x-rapidapi-key" => "ac81091c7fmsh3487d369d1749f9p16ab36jsn00ff3337a5b3"
-                    ]]);
-                $content_musica = $response->getContent();
-                $content_musica = $response->toArray();
+                $response = $client->request('GET', 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita');
+                $content_begudes= $response->getContent();
+                $content_begudes = $response->toArray();
 
                 return $this->render('list/index.html.twig', [
                     'form' => $form->createView(),
-                    'content_musica' => $content_musica
+                    'content_begudes' => $content_begudes
                 ]);
             }   
             
